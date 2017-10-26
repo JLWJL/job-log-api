@@ -7,11 +7,11 @@ const router = express.Router();
 const MW = require("./middlewares");
 
 router.route("/").
-    get(MW.checkTokenStatus, MW.checkUserStatus, jobController.GetJobs).
-    post(MW.checkTokenStatus, jobController.CreateJob);
+    get(MW.validateToken, MW.validateUserId, jobController.GetJobs).
+    post(MW.validateToken, MW.validateUserId, jobController.CreateJob);
 
 router.route("/:app_id").
-    get(MW.checkTokenStatus, jobController.SingleJob).
-    delete(MW.checkTokenStatus, jobController.DeleteJob);
+    get(MW.validateToken, jobController.SingleJob).
+    delete(MW.validateToken, jobController.DeleteJob);
 
 module.exports = router;

@@ -1,0 +1,23 @@
+{
+  "name": "joblog",
+  "version": "1.0.0",
+  "description": "Managing job applications",
+  "main": "index.js",
+  "author": "Junlong",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.1",
+    "express-session": "^1.15.6",
+    "fast-memory-cache": "^2.0.4",
+    "jsonwebtoken": "^8.1.0",
+    "mysql": "^2.15.0",
+    "nodemon": "^1.12.1",
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "start": "nodemon app.js"
+  }
+}

@@ -45,3 +45,27 @@ exports.validateUserId = function(req, res, next) {
     res.status(400).send({"message": "User does not exist"});
   }
 };
+
+/**
+ * Validate the ownership of a user for an job application
+ * This middleware should be placed after 'validateToken' middleware
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.validateOwnerShip = function(req, res, next) {
+  let app_id = req.params.app_id;
+  let user_id = req.user.userId; //From previous middleware
+  let sql = "SELECT * FROM application where app_id = ? AND user_id=?";
+
+  db.getPool().query(sql, [app_id, user_id], (err, results) => {
+    if (err) {
+      res.status(500).send({"message": err});
+    }
+    else if (results.length < 1) {
+      res.status(401).send({"message": "Unauthorised operation"});
+    } else {
+      next();
+    }
+  });
+};

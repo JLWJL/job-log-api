@@ -1,7 +1,13 @@
 const jwt = require("../../config/jwt");
 const db = require("../../config/db");
 
-exports.checkTokenStatus = function(req, res, next) {
+/***
+ * To check if the token passed is valid
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.validateToken = function(req, res, next) {
   let token = req.get("X-Authentication");
 
   jwt.verify(token, (err, decoded) => {
@@ -13,9 +19,15 @@ exports.checkTokenStatus = function(req, res, next) {
       res.status(401).send("Unauthorized");
     }
   });
-}
+};
 
-exports.checkUserStatus = function(req, res, next) {
+/**
+ * To check if the passed user id exists in the database
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.validateUserId = function(req, res, next) {
   if (req.user.userId) {
     let id = req.user.userId;
     let sql = "SELECT * FROM user WHERE user_id = ?";
@@ -32,4 +44,4 @@ exports.checkUserStatus = function(req, res, next) {
   else {
     res.status(400).send({"message": "User does not exist"});
   }
-}
+};

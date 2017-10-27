@@ -81,10 +81,18 @@ function deleteJob(values, done) {
   });
 }
 
+function updateJob(values, done) {
+  let sql = "UPDATE application SET ? WHERE app_id = ?";
+//Empty expire counts as empty string which is invalid in DB column
+  values.body.expire = values.body.expire === "" ? null : values.body.expire;
+  db.getPool().query(sql, [values.body, values.app_id], done);
+}
+
 module.exports = {
   listJobs: listJobs,
   getJobs: getJobs,
   singleJob: singleJob,
   createJob: createJob,
   deleteJob: deleteJob,
+  updateJob: updateJob
 };

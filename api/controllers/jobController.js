@@ -58,10 +58,26 @@ function deleteJob(req, res, next) {
   });
 }
 
+function updateJob(req, res, next) {
+  let values={
+    "body":req.body,
+    "app_id":req.params.app_id
+  };
+
+  Job.updateJob(values, (err, results)=>{
+    if(err){
+      next(err);
+    }else{
+      res.status(200).json({"message":"Updated successfully"});
+    }
+  });
+}
+
 module.exports = {
   ListJobs: listJobs,
   GetJobs: getJobs,
   SingleJob: singleJob,
   CreateJob: createJob,
   DeleteJob: deleteJob,
+  UpdateJob: updateJob,
 };

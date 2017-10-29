@@ -32,7 +32,8 @@ function singleJob(req, res, next) {
     if (err) {
       next(err);
     } else {
-      res.status(200).json(results);
+      console.log("Single job: ", results);
+      res.status(200).json(results[0]);
     }
   });
 }

@@ -39,7 +39,7 @@ function singleJob(req, res, next) {
 }
 
 function createJob(req, res, next) {
-
+  req.body = Object.assign({"user_id":req.user.userId}, req.body);
   Job.createJob(req.body, (err, result) => {
     if (err) {
       next(err);

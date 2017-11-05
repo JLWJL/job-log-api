@@ -56,6 +56,7 @@ function createJob(values, done) {
 
   //Empty expire counts as empty string which is invalid in DB column
   if (values.expire === "") values.expire = null;
+  if (values.salary === "") values.salary = null;
   db.getPool().query(sql, [values], (err, results, fields) => {
     if (err) {
       return done({

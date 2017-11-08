@@ -1,28 +1,27 @@
 const mysql = require('mysql');
 const state = {
-	pool:null,
+  pool: null,
 };
 
+function connect (done) {
+  state.pool = mysql.createPool(
+    {
+      connectionLimit: 100,
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'job_log',
+    });
 
-function Connect (done){
-	state.pool = mysql.createPool(
-		{
-			connectionLimit:100,
-			host: 'localhost',
-			user: 'root',
-			password: '',
-			database: 'job_log'
-		});
-
-	done();
+  done();
 }
 
-function GetPool (){
-	return state.pool;
+function getPool () {
+  return state.pool;
 }
 
 module.exports = {
-	connect: Connect,
-	getPool: GetPool,
-}
+  connect: connect,
+  getPool: getPool,
+};
 

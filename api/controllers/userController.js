@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-const User = require("../models/userModel");
-const jwt = require("../../config/jwt");
+const User = require('../models/userModel');
+const jwt = require('../../config/jwt');
 
-function SignUp(req, res, next) {
+function signUp (req, res, next) {
 
   User.signUp(req.body, (err, result) => {
     if (err) {
@@ -14,44 +14,44 @@ function SignUp(req, res, next) {
   });
 }
 
-function Login(req, res, next) {
+function login (req, res, next) {
   User.login(req.body, (err, result) => {
     if (err) {
       next(err);
     }
     else {
       let token = jwt.sign(result);
-      res.status(200).json({"id": result.user_id, "token": token});
+      res.status(200).json({'id': result.user_id, 'token': token});
     }
   });
 }
 
-function Logout(req, res, next) {
-  let token = req.get("X-Authorization");
+function logout (req, res, next) {
+  let token = req.get('X-Authorization');
   jwt.invoke(token);
 
-  res.status(200).json({"status": 200, "message": "Logged out"});
+  res.status(200).json({'status': 200, 'message': 'Logged out'});
 }
 
-function listUsers(req, res, next) {
+function listUsers (req, res, next) {
   User.listUsers((err, results) => {
     if (err) {
       next({
-        "message": err.code,
-        "status": 500,
+        'message': err.code,
+        'status': 500,
       });
     }
     res.status(200).json(results);
   });
 }
 
-function singleUser(req, res, next) {
+function singleUser (req, res, next) {
   let id = req.params.user_id;
   User.singleUser(id, (err, results) => {
     if (err) {
       next({
-        "message": err.code,
-        "status": 500,
+        'message': err.code,
+        'status': 500,
       });
     } else {
       res.status(200).json(results[0]);
@@ -70,10 +70,10 @@ function singleUser(req, res, next) {
 // }
 
 module.exports = {
-  SignUp: SignUp,
-  Login: Login,
-  Logout: Logout,
-  ListUsers: listUsers,
-  SingleUser: singleUser,
+  signUp: signUp,
+  login: login,
+  logout: logout,
+  listUsers: listUsers,
+  singleUser: singleUser,
   // DeleteUser: deleteUser,
 };

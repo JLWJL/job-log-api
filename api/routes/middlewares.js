@@ -1,5 +1,5 @@
-const jwt = require("../../config/jwt");
-const db = require("../../config/db");
+const jwt = require('../../config/jwt');
+const db = require('../../config/db');
 
 /***
  * To check if the token passed is valid
@@ -7,8 +7,8 @@ const db = require("../../config/db");
  * @param res
  * @param next
  */
-exports.validateToken = function(req, res, next) {
-  let token = req.get("X-Authentication");
+exports.validateToken = function (req, res, next) {
+  let token = req.get('X-Authentication');
 
   jwt.verify(token, (err, decoded) => {
     if (decoded) {
@@ -16,7 +16,7 @@ exports.validateToken = function(req, res, next) {
       next();
     }
     else {
-      res.status(401).send("Unauthorized");
+      res.status(401).send('Unauthorized');
     }
   });
 };
@@ -27,22 +27,22 @@ exports.validateToken = function(req, res, next) {
  * @param res
  * @param next
  */
-exports.validateUserId = function(req, res, next) {
+exports.validateUserId = function (req, res, next) {
   if (req.user.userId) {
     let id = req.user.userId;
-    let sql = "SELECT * FROM user WHERE user_id = ?";
+    let sql = 'SELECT * FROM user WHERE user_id = ?';
     db.getPool().query(sql, [id], (err, results, fields) => {
       if (err) {
-        res.status(500).send({"message:": err});
+        res.status(500).send({'message:': err});
       } else if (results.length < 1) {
-        res.status(400).send({"message": "User does not exist"});
+        res.status(400).send({'message': 'User does not exist'});
       } else {
         next();
       }
     });
   }
   else {
-    res.status(400).send({"message": "User does not exist"});
+    res.status(400).send({'message': 'User does not exist'});
   }
 };
 
@@ -53,17 +53,17 @@ exports.validateUserId = function(req, res, next) {
  * @param res
  * @param next
  */
-exports.validateOwnerShip = function(req, res, next) {
-  let app_id = req.params.app_id;
-  let user_id = req.user.userId; //From previous middleware
-  let sql = "SELECT * FROM application where app_id = ? AND user_id=?";
+exports.validateOwnerShip = function (req, res, next) {
+  let appId = req.params.app_id;
+  let userId = req.user.userId; //From previous middleware
+  let sql = 'SELECT * FROM application where app_id = ? AND user_id=?';
 
-  db.getPool().query(sql, [app_id, user_id], (err, results) => {
+  db.getPool().query(sql, [appId, userId], (err, results) => {
     if (err) {
-      res.status(500).send({"message": err});
+      res.status(500).send({'message': err});
     }
     else if (results.length < 1) {
-      res.status(401).send({"message": "Unauthorised operation"});
+      res.status(401).send({'message': 'Unauthorised operation'});
     } else {
       next();
     }

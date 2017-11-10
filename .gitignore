@@ -1,6 +1,7 @@
 dist/
 
-
+# Heroku local development
+Procfile
 
 # Logs
 logs

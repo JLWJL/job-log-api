@@ -43,7 +43,7 @@ module.exports = function () {
   //Handle invalid url
   app.use((req, res, next) => {
     console.log('Invalid api uri');
-    res.send('Invalid api call');
+    res.status(400).send('Invalid api call');
   });
 
   return app;

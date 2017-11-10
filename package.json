@@ -18,6 +18,7 @@
     "path": "^0.12.7"
   },
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "start:dev": "nodemon app.js"
   }
 }

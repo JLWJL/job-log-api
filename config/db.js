@@ -1,19 +1,45 @@
 const mysql = require('mysql');
+const fs = require('fs');
+const LOCAL_DB = require('./config').LOCAL_DB;
+
 const state = {
   pool: null,
 };
 
 function connect (done) {
-  state.pool = mysql.createPool(
-    {
-      connectionLimit: 100,
-      host: 'localhost',
-      user: 'root',
-      password: '',
-      database: 'job_log',
-    });
+  console.log(process.env.JAWSDB_URL);
+  state.pool = mysql.createPool(process.env.JAWSDB_URL || LOCAL_DB);
 
-  done();
+  //Heroku addon DB can't execute multiple statements
+  //Need to manual set up table
+  if(process.env.JAWSDB_URL){
+    done();
+  }else{
+    initialiseDB(done);
+  }
+}
+
+/**
+ * Initialise database if not exist.
+ * @param done
+ */
+function initialiseDB (done) {
+  fs.readFile(__dirname + '/db-init.sql', (err, data) => {
+    if (err) {
+      console.log('Read file error');
+      done(err);
+    }else{
+      getPool().query(data.toString(), (err, results) => {
+        if(err){
+          console.log("Database initialisation error: ", err);
+          done(err);
+        }else{
+          console.log("Database running successfully");
+          done(null);
+        }
+      });
+    }
+  });
 }
 
 function getPool () {

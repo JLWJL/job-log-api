@@ -9,6 +9,15 @@ module.exports = {
     },
   },
 
+  'LOCAL_DB': {
+    connectionLimit: 100,
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'job_log',
+    multipleStatements: true
+  },
+
   'jwtConfig': {
     'SECRET': 'htawen2231$$!&*11',
   },

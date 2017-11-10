@@ -3,16 +3,12 @@ const config = require('./config');
 
 const express = require('express');
 const bodyPaser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const MW = require('../api/routes/middlewares');
 
 const jobRoutes = require('../api/routes/jobRoutes');
 const userRoutes = require('../api/routes/userRoutes');
 
 module.exports = function () {
   const app = express();
-  console.log('app is ', app);
 
   //
   // Middlewares
@@ -29,13 +25,12 @@ module.exports = function () {
 
   app.use(bodyPaser.urlencoded({extended: true}));
   app.use(bodyPaser.json());
-  app.use(session(config.sess));
 
   //
   // Routes
   //
-  app.use('/job', jobRoutes);
-  app.use('/user', userRoutes);
+  app.use('/api/v1/job', jobRoutes);
+  app.use('/api/v1/user', userRoutes);
 
   //
   // Error handling
@@ -43,6 +38,12 @@ module.exports = function () {
   app.use((err, req, res, next) => {
     console.log('Error handled: ', err);
     res.status(err.status || 400).send(err.message);
+  });
+
+  //Handle invalid url
+  app.use((req, res, next) => {
+    console.log('Invalid api uri');
+    res.send('Invalid api call');
   });
 
   return app;

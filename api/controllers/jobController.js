@@ -44,7 +44,7 @@ function createJob (req, res, next) {
     if (err) {
       next(err);
     } else {
-      res.status(201).json(result);
+      res.status(201).json("Created");
     }
   });
 }
@@ -54,7 +54,7 @@ function deleteJob (req, res, next) {
     if (err) {
       next(err);
     } else {
-      res.status(200).json(result);
+      res.status(200).json("Deleted");
     }
   });
 }
@@ -69,7 +69,7 @@ function updateJob (req, res, next) {
     if (err) {
       next(err);
     } else {
-      res.status(200).json({'message': 'Updated successfully'});
+      res.status(200).json("Updated successfully");
     }
   });
 }

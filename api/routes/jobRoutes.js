@@ -18,7 +18,7 @@ router.route('/:app_id').
     jobController.singleJob).
   delete(MW.validateToken, MW.validateUserId, MW.validateOwnerShip,
     jobController.deleteJob).
-  put(MW.validateToken, MW.validateUserId, MW.validateOwnerShip,
+  patch(MW.validateToken, MW.validateUserId, MW.validateOwnerShip,
     jobController.updateJob);
 
 module.exports = router;

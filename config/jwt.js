@@ -36,7 +36,6 @@ exports.invoke = function invoke (token) {
 exports.verify = function verify (token, done) {
   if (!isInvoked(token)) {
     jwt.verify(token, jwtConfig.SECRET, done);
-
   } else {
     done();
   }

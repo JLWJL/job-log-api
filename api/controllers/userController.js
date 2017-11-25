@@ -59,6 +59,19 @@ function singleUser (req, res, next) {
   });
 }
 
+function authToken(req, res, next){
+  console.log("body.token: ", req.body);
+  jwt.verify(req.body.token, (err, decoded)=>{
+    if (err){
+      console.log("Verify error: ", err);
+      res.status(401).json(err);
+    }
+    else{
+      res.status(200).json("Valid token");
+    }
+  })
+}
+
 // function deleteUser(req, res, next){
 // 	User.deleteUser(req.params.user_id, (err, result)=>{
 // 		if(err){
@@ -75,5 +88,5 @@ module.exports = {
   logout: logout,
   listUsers: listUsers,
   singleUser: singleUser,
-  // DeleteUser: deleteUser,
+  authToken: authToken
 };

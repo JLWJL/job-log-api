@@ -4,7 +4,7 @@ const userController = require('../controllers/userController');
 const express = require('express');
 const router = express.Router();
 
-router.route(/^\/auth$/).post(userController.authToken);
+router.route(/^\/auth$/).get(userController.authToken);
 
 router.route('/auth/signup').post(userController.signUp);
 

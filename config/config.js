@@ -11,7 +11,7 @@ module.exports = {
 
   'LOCAL_DB': {
     connectionLimit: 100,
-    host: 'localhost',
+    host: process.env.DOCKER_MYSQL || 'localhost' ,
     user: 'root',
     password: '',
     database: 'job_log',

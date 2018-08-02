@@ -7,7 +7,7 @@ const state = {
 };
 
 function connect (done) {
-  console.log(process.env.JAWSDB_URL);
+  console.log("DB host is: ", process.env.JAWSDB_URL);
   state.pool = mysql.createPool(process.env.JAWSDB_URL || LOCAL_DB);
 
   //Heroku addon DB can't execute multiple statements

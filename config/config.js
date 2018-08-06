@@ -13,7 +13,7 @@ module.exports = {
     connectionLimit: 100,
     host: process.env.DOCKER_MYSQL || 'localhost' ,
     user: 'root',
-    password: '',
+    password: 'abc',
     database: 'job_log',
     multipleStatements: true
   },

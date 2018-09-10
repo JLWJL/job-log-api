@@ -13,7 +13,7 @@ module.exports = {
     connectionLimit: 100,
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'abcd',
     database: 'job_log',
     multipleStatements: true
   },
